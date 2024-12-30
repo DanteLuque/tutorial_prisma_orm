@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Creando un modelo en prisma (una tabla de una db relacional)
+model User {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  name      String
+  lastname  String?
+  posts     Post[] //muchos
+}
+
+//Relacion uno a mucho entre User y Post
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  userId    Int     //uno
+  user      User    @relation(fields: [userId], references: [id])
+}
+
