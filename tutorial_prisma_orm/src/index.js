@@ -37,6 +37,7 @@ async function buscar() {
 }
 
 async function eliminar() {
+    /*
     try {
         const user = await prisma.user.delete({
             where: {
@@ -49,6 +50,19 @@ async function eliminar() {
         }
     } catch (e) {
         console.error(e)
+    }
+        */
+    const user = await prisma.user.delete({
+        where: {
+            id: 3
+        }
+    }).catch((e)=>{
+        console.log(e);
+        return null; // Opcional: maneja el caso de error devolviendo un valor predeterminado.
+    })
+
+    if (user) {
+        console.log(user);
     }
 }
 
@@ -168,7 +182,7 @@ async function listUsersandPost() {
     users.forEach(user => {
         console.log('=========');
         console.log(`User: ${user.name}`);
-        console.log(`User: ${user.email}`);
+        console.log(`Email: ${user.email}`);
 
         user.posts.forEach((post, i)=>{
             console.log(`${i+1}. ${post.title} ${post.content}`)
@@ -177,4 +191,4 @@ async function listUsersandPost() {
 }
 
 
-listUsersandPost()
+eliminar()
