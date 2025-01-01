@@ -59,7 +59,7 @@ async function eliminar() {
     }).catch((e)=>{
         console.log(e);
         return null; // Opcional: maneja el caso de error devolviendo un valor predeterminado.
-    })
+    }).finally(() => prisma.$disconnect());
 
     if (user) {
         console.log(user);
